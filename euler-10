@@ -1,0 +1,13 @@
+# Sum of primes below two million
+bound = 2000000
+total = 0
+primesQ = [1 for i in range(bound+1)]
+
+for i in range(2,bound+1):
+    for j in range(2,int(bound/i)+1):
+        primesQ[i*j]=False
+
+for i in range(2,bound+1):
+    if primesQ[i]: total += i
+
+print(total)
