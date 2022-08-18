@@ -14,7 +14,7 @@ def getMasks(length):
     masks = []
 
     for i in range(2 ** length):
-        masks.append(int(bin(i)[2:].rjust(length, "0")))
+        masks.append(int(bin(i)[2:]))
 
     return masks
 
@@ -37,19 +37,17 @@ def getPrimes(n):
 
     return isPrime
 
-maxCheck = 100000
-isPrime = getPrimes(100000)
-checked = [False for i in range(maxCheck)]
+familySize = 8
+maxCheck = 1000000
+isPrime = getPrimes(maxCheck)
 
-for n in range(10000,100000):
-    for mask in getMasks(5):
-        base = getBase(n, mask)
-
-        if not checked[base]:
-            checked[base] = True
-
-            family = [base + mask * i for i in range(10)]
-            primeFamily = [f for f in family if isPrime[f]]
+for n in range(100000, maxCheck):
+    if isPrime[n]:
+        for mask in getMasks(6):
+            base = getBase(n, mask)
+            family = {base + mask * i for i in range(10)}
+            primeFamily = [f for f in family if isPrime[f] and f >= 100000]
 
             if len(primeFamily) >= familySize:
+                print(n, primeFamily)
                 
