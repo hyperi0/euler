@@ -1,0 +1,16 @@
+# Problem 20: Factorial Digit Sum
+# Find the sum of the digits in the number 100!
+
+digits = [1]
+factor = [2]
+n = 0
+
+for i in range(len(digits)):
+
+    n = digits[i]*factor
+    digits[i] += n
+
+    if digits[i] >= 10:
+        digits[i] = digits[i]%10
+        digits[i+1] += 1
+    

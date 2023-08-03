@@ -1,0 +1,31 @@
+# Find the lowest sum for a set of five primes
+#   for which any two primes concatenate to produce another prime
+
+def getPrimes(n):
+
+    isPrime = [True for i in range(n+1)]
+
+    for i in range(2, int(n/2)+1):
+        if isPrime[i]:
+            for j in range(2, int(n/i)+1):
+                if i*j < n+1: isPrime[i*j] = False
+
+    return [p for p in range(2, n+1) if isPrime[p]]
+
+# Naive solution
+#   Generate primes then concat groups
+
+import itertools
+
+primes = getPrimes(10000)
+
+#for group in itertools.combinations(primes, 3):
+for group in itertools.combinations(primes[:1000], 3):
+    pog = True
+    for pair in itertools.combinations(group, 2):
+        if int(str(pair[0]) + str(pair[1])) not in primes:
+            pog = False
+        if int(str(pair[1]) + str(pair[0])) not in primes:
+            pog = False
+    if pog:
+        print(group)
